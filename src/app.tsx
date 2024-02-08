@@ -1,7 +1,9 @@
 import { ChangeEvent, useState } from "react"
-import logo from "./assets/logo-nlw-expert.svg"
+import logo2 from "./assets/logo-nlw-expert.svg"
+import logo1 from "./assets/logo-notespeakpro.png"
 import { NewNoteCard } from "./components/new-note-card"
 import { NoteCard } from "./components/note-card"
+import { Footer } from "./components/Footer"
 
 interface Note {
   id: string;
@@ -36,6 +38,10 @@ export function App() {
   }
 
   function onNoteDeleted(id: string) {
+    if (confirm("Deseja realmente apagar esta nota?") == false) {
+      return
+    }
+    
     const notesArray = notes.filter(note => {
       return note.id !== id
     })
@@ -54,7 +60,10 @@ export function App() {
 
   return (
     <div className="mx-auto max-w-6xl m-12 space-y-6 px-5">
-      <img src={logo} alt="NLW Expert" />
+      <div className="flex justify-between">
+        <img src={logo1} alt="NoteSpeak.pro Logo" className="w-60" />
+        <img src={logo2} alt="NLW Expert" />
+      </div>
 
       <form className="w-full mt-6">
         <input 
@@ -74,6 +83,8 @@ export function App() {
           return <NoteCard key={note.id} note={note} onNoteDeleted={onNoteDeleted} />
         })}
       </div>
+
+      <Footer />
     </div>
   )
 }
